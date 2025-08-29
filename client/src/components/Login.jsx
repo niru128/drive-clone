@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = import.meta.env.REACT_APP_API_URL || "https://drive-clone-44yp.onrender.com";
+
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,7 +16,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:5001/api/auth/login", {
+            const res = await axios.post(`${API_URL}/api/auth/login`, {
                 email, password
             });
 

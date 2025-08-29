@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
+const API_URL = import.meta.env.REACT_APP_API_URL || "https://drive-clone-44yp.onrender.com";
+
 
 export default function Signup() {
 
@@ -11,13 +13,14 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+
     const navigate = useNavigate(); // ✅ React Router hook
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:5001/api/auth/signup', {
+            const res = await axios.post(`${API_URL}/api/auth/signup`, {
                 name,
                 email,
                 password

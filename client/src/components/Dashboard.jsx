@@ -4,6 +4,8 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { toast } from "sonner";
 
+const API_URL = import.meta.env.REACT_APP_API_URL || "https://drive-clone-44yp.onrender.com";
+
 export default function Dashboard() {
   const [folders, setFolders] = useState([]);
   const [folderName, setFolderName] = useState("");
@@ -16,7 +18,7 @@ export default function Dashboard() {
   // fetch folders
   const fetchFolders = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/folders", {
+      const res = await axios.get(`${API_URL}/api/folders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -36,7 +38,7 @@ export default function Dashboard() {
     if (!folderName) return toast.error("Folder name is required");
     try {
       await axios.post(
-        "http://localhost:5001/api/folders",
+        `${API_URL}/api/folders`,
         { name: folderName },
         {
           headers: {
@@ -65,7 +67,7 @@ export default function Dashboard() {
 
     try {
       await axios.post(
-        `http://localhost:5001/api/images/${folderId}`,
+        `${API_URL}/api/images/${folderId}`,
         formData,
         {
           headers: {
@@ -87,7 +89,7 @@ export default function Dashboard() {
   const searchImages = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5001/api/images/search?name=${searchTerm}`,
+        `${API_URL}/api/images/search?name=${searchTerm}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -143,12 +145,12 @@ export default function Dashboard() {
               >
                 <CardContent className="p-2">
                   <img
-                    src={`http://localhost:5001/uploads/${img.user}/${img.fileName}`}
+                    src={`${API_URL}/uploads/${img.user}/${img.fileName}`}
                     alt={img.name}
                     className="w-full h-32 object-cover rounded-md cursor-pointer"
                     onClick={() =>
                       setSelectedImage(
-                        `http://localhost:5001/uploads/${img.user}/${img.fileName}`
+                        `${API_URL}/uploads/${img.user}/${img.fileName}`
                       )
                     }
                   />
@@ -217,7 +219,7 @@ export default function Dashboard() {
                 {folder.images?.map((img) => (
                   <img
                     key={img._id}
-                    src={`http://localhost:5001/uploads/${img.path}`}
+                    src={`${API_URL}/uploads/${img.path}`}
                     alt={img.name}
                     className="w-full h-20 object-cover rounded-md"
                   />
