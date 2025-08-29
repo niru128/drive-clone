@@ -13,7 +13,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(cors(
+  { origin: ["https://drive-clone-rho-beryl.vercel.app"],
+  credentials: true}
+));
 app.use(express.json());
 
 // ✅ Serve all files under uploads, including subfolders
